@@ -29,22 +29,6 @@ Features included:
 
 ---
 
-## Project Overview
-
-The Monte Carlo Based Option Pricing Model is a quantitative finance web application developed using Streamlit that enables users to simulate and price financial derivatives using stochastic simulations and numerical methods.
-
-The platform supports pricing and analysis of:
-
-* European Options
-* American Options
-* Exotic Options
-
-using advanced quantitative finance techniques such as:
-
-* Monte Carlo Simulation
-* Black-Scholes Analytical Pricing
-* Least Squares Monte Carlo (LSMC)
-* Binomial Tree Methods
 # Monte Carlo Based Option Pricing Model
 
 ## Project Overview
