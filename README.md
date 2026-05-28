@@ -28,9 +28,6 @@ Features included:
 * Asian Options
 
 ---
-
-# Monte Carlo Based Option Pricing Model
-
 ## Project Overview
 
 The Monte Carlo Based Option Pricing Model is a quantitative finance web application developed using Streamlit that enables users to simulate and price financial derivatives using stochastic simulations and numerical methods.
