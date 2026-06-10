@@ -6,10 +6,10 @@ import yfinance as yf
 from scipy.stats import norm
 import matplotlib.pyplot as plt
 import seaborn as sns 
-st.set_page_config(layout="wide")
+
 st.title("Monte Carlo Option Pricing App")
 st.markdown("Supports European, Asian , and American Options ")
-
+st.set_page_config(layout="wide")
 option_type = st.sidebar.selectbox("Option Type", ["American","Barrier"])
 
 
@@ -34,12 +34,12 @@ if option_type == "American":
 
   #Set option parameters
  lcallt_price = data['Close'].iloc[-1].item()
- S = st.sidebar.number_input("Stock Price (S0)", value=float(lcallt_price), step=1.0,key="stock price")
- K = st.sidebar.number_input("Strike Price (K)", value=float(S * 1.1), step=1.0,key="strike price")
- T = st.sidebar.number_input("Time to Maturity (T in years)", value=0.5,key="time")
- r = st.sidebar.number_input("Risk-Free Rate (r)", value=0.05,key="risk")
- N = st.sidebar.number_input("Time Steps (N)", value=250,key="time steps")
- M = st.sidebar.number_input("Simulations (M)", value=10000,key="simula")
+ S = st.sidebar.number_input("Stock Price (S0)", value=float(lcallt_price), step=1.0)
+ K = st.sidebar.number_input("Strike Price (K)", value=float(S * 1.1), step=1.0)
+ T = st.sidebar.number_input("Time to Maturity (T in years)", value=0.5)
+ r = st.sidebar.number_input("Risk-Free Rate (r)", value=0.05)
+ N = st.sidebar.number_input("Time Steps (N)", value=100)
+ M = st.sidebar.number_input("Simulations (M)", value=10000)
 
  dt = T / N
  st.subheader("🔔 American Option Pricing")
@@ -169,8 +169,6 @@ if option_type == "American":
  lsmc_put_price = lsmc_option(S_paths, K, r, dt, option_type='put')
  lsmc_call_price = lsmc_option(S_paths, K, r, dt, option_type='call')
 
- box2 = st.container(border=True)
- box3 = st.container(border=True)
  tab1, tab2, tab3 = st.tabs(['Option prices','Greeks','Price convergence graphs'])
  
  with tab1:
@@ -194,7 +192,7 @@ if option_type == "American":
 
  n_steps = 10000
  step_size = 100
- n_simulations_list = np.arange(100, 10000, step_size)
+ n_simulations_list = np.arange(100, 2000, step_size)
  dt = T / N
  lsmc_put = []
  lsmc_call= []
@@ -279,7 +277,7 @@ if option_type == "American":
         return delta_call, delta_put, gamma_call, gamma_put, vega_call, vega_put, theta_call, theta_put, rho_call, rho_put
 
  greeks = {'delta_call': [],'delta_put': [], 'gamma_call':[], 'gamma_put':[], 'vega_call':[], 'vega_put':[], 'theta_call':[], 'theta_put':[], 'rho_call':[], 'rho_put':[]}
- S_rang = np.linspace(S * 0.8, S * 1.2, 50)
+ S_rang = np.linspace(S * 0.8, S * 1.2, 20)
 
  for S in S_rang:
         delta_call, delta_put, gamma_call, gamma_put, vega_call, vega_put, theta_call, theta_put, rho_call, rho_put = american_lsmc_greeks(S,K,r,vol,T,N,M)
@@ -321,7 +319,7 @@ if option_type == "American":
         col4, col5 , col6 , col7,col8 = box3.columns(5)
         col4.metric("Delta Call ",f"₹{delta_call:.2f}")
         col4.metric("Delta put",f"₹{delta_put:.2f}")
-        col5.metric("Gamma Call ", f"₹{abs(gamma_call) :.2f}")
+        col5.metric("Gamma Call ", f"₹{abs(gamma_call ):.2f}")
         col5.metric("Gamma put",f"₹{abs(gamma_put):.2f}")
         col6.metric("Vega Call ",f"₹{vega_call:.2f}")
         col6.metric("vega put",f"₹{vega_put:.2f}")
@@ -335,14 +333,14 @@ if option_type == "American":
 
     with col2:
         st.header("Input Parameters")
-        K = st.number_input("Strike Price (K)", value=100.0, key="strike-price")
-        T = st.number_input("Time to Maturity (T in years)", value=1.0, key="tiime")
-        r = st.number_input("Risk-Free Rate (r)", value=0.05, key="riksk")
-        vol = st.number_input("Volatility (vol)", value=0.2, key="volatiglity")
-        M = st.number_input("Number of Simulations", value=10000, step=1000, key="sigmula")
-        S_min = st.number_input("Min Stock Price", value=50.0, key="min")
-        S_max = st.number_input("Max Stock Price", value=150.0, key="max")
-        S_step = st.number_input("Step Size", value=5.0, key="stegp")
+        K = st.number_input("Strike Price (K)", value=100.0)
+        T = st.number_input("Time to Maturity (T in years)", value=1.0)
+        r = st.number_input("Risk-Free Rate (r)", value=0.05)
+        vol = st.number_input("Volatility (vol)", value=0.2)
+        M = st.number_input("Number of Simulations", value=10000, step=1000)
+        S_min = st.number_input("Min Stock Price", value=50.0)
+        S_max = st.number_input("Max Stock Price", value=150.0)
+        S_step = st.number_input("Step Size", value=5.0)
 
  # Compute Greeks over range of stock prices
     S_range = np.linspace(80, 120, len(greeks['delta_call']))
@@ -414,14 +412,14 @@ if option_type == "Barrier":
  
  st.subheader("🔔 Barrier Option Pricing (Up-In / Down-In)")
  st.sidebar.header("📌 Option Parameters")
- ticker_symbol = st.sidebar.text_input("Ticker", value="INFY.NS", key="hah8")
- K = st.sidebar.number_input("Strike Price (K)", value=1550.0, key="hah7")
- barrier_type = st.sidebar.selectbox("Barrier Type", ["up-in", "down-in"], key="hah6")
- option_kind = st.sidebar.selectbox("Option Type", ["call", "put"], key="hah5")
- T = st.sidebar.slider("Time to Maturity (Years)", 0.1, 2.0, 1.0, key="hah3")
- r = st.sidebar.slider("Risk-Free Rate (r)", 0.00, 0.20, 0.06, key="hah4")
- n_steps = st.sidebar.slider("Time Steps", 50, 365, 252, key="hah12")
- n_paths = st.sidebar.slider("Simulations", 1000, 50000, 10000, step=1000, key="hah1")
+ ticker_symbol = st.sidebar.text_input("Ticker", value="INFY.NS")
+ K = st.sidebar.number_input("Strike Price (K)", value=1550.0)
+ barrier_type = st.sidebar.selectbox("Barrier Type", ["up-in", "down-in"])
+ option_kind = st.sidebar.selectbox("Option Type", ["call", "put"])
+ T = st.sidebar.slider("Time to Maturity (Years)", 0.1, 2.0, 1.0)
+ r = st.sidebar.slider("Risk-Free Rate (r)", 0.00, 0.20, 0.06)
+ n_steps = st.sidebar.slider("Time Steps", 50, 365, 252)
+ n_paths = st.sidebar.slider("Simulations", 1000, 50000, 10000, step=1000)
  
  data = yf.Ticker(ticker_symbol).history(period="6mo")
  if data.empty:
@@ -547,12 +545,12 @@ if option_type == "Barrier":
 
  with tab3:
     K = st.number_input("Strike Price (K)", value=1550.0)
-    barrier_type = st.text_input("Barrier Type", ["up-in", "down-in"], key ="jiji")
-    option_kind = st.text_input("Option Type", ["call", "put"], key="option")
-    T = st.slider("Time to Maturity (Years)", 0.1, 2.0, 1.0, kwy="haha")
-    r = st.slider("Risk-Free Rate (r)", 0.00, 0.20, 0.06, key="hehe")
-    n_steps = st.slider("Time Steps", 50, 365, 252, key="giwhf")
-    n_paths = st.slider("Simulations", 1000, 50000, 10000, step=1000,key="hehfe")
+    barrier_type = st.text_input("Barrier Type", ["up-in", "down-in"])
+    option_kind = st.text_input("Option Type", ["call", "put"])
+    T = st.slider("Time to Maturity (Years)", 0.1, 2.0, 1.0)
+    r = st.slider("Risk-Free Rate (r)", 0.00, 0.20, 0.06)
+    n_steps = st.slider("Time Steps", 50, 365, 252)
+    n_paths = st.slider("Simulations", 1000, 50000, 10000, step=1000)
     
     # --- Convergence Plot ---
     st.subheader("📈 Convergence Plot")
@@ -576,6 +574,3 @@ if option_type == "Barrier":
         st.pyplot(fig2)
 
     plot_convergence()
-
-
-
