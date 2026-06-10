@@ -132,10 +132,10 @@ The application simulates stock prices using Geometric Brownian Motion (GBM).
 
 ## Geometric Brownian Motion (GBM)
 
-Stock prices are simulated using the Geometric Brownian Motion model:
+The underlying stock price dynamics are modeled as:
 
 $$
-dS_t = \mu S_t\,dt + \sigma S_t\,dW_t
+dS_t = \mu S_t dt + \sigma S_t dW_t
 $$
 
 where:
@@ -143,7 +143,8 @@ where:
 - **$S_t$** = stock price at time $t$
 - **$\mu$** = expected return (drift)
 - **$\sigma$** = volatility
-- **$dW_t$** = Wiener process (Brownian motion)
+- **$W_t$** = Wiener process (Brownian motion)
+- **$dW_t$** = infinitesimal increment of the Wiener process
 
 ---
 
