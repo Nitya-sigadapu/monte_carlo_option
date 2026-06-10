@@ -145,21 +145,6 @@ where:
 - **$\sigma$** = volatility
 - **$dW_t$** = Wiener process (Brownian motion)
 
-Under the risk-neutral measure, stock paths are generated using:
-
-$$
-S_{t+\Delta t}
-=
-S_t
-\exp\left(
-(r-\tfrac12\sigma^2)\Delta t
-+
-\sigma\sqrt{\Delta t}Z
-\right)
-$$
-
-where $Z \sim N(0,1)$.
-
 ---
 
 # Interactive Visualizations
