@@ -231,25 +231,6 @@ Includes:
 * Greeks Visualization
 * GBM Path Simulation
 
-Deployment Link:
-
-[European Option Pricing App](https://montecarlooption-g8o9uw9f9cburuj23zjbaw.streamlit.app/?utm_source=chatgpt.com)
-
----
-
-## American & Barrier Option Pricing App
-
-Includes:
-
-* American Option Pricing
-* LSMC Method
-* Binomial Tree Method
-* Barrier Options (Up-In / Down-In)
-* Asian Options
-
-Deployment Link:
-
-[American & Barrier Option Pricing App](https://americanbarrieroptions-phtwj55ba4bjo4sjb2myjr.streamlit.app/?utm_source=chatgpt.com)
 
 ---
 
