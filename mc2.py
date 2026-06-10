@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns 
 
 st.title("Monte Carlo Option Pricing App")
-st.markdown("Supports European, Asian , and American Options ")
+st.markdown("Supports European, Asian ,and American Options ")
 st.set_page_config(layout="wide")
 option_type = st.sidebar.selectbox("Option Type", ["American","Barrier"])
 
