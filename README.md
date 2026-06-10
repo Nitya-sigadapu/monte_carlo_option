@@ -130,15 +130,35 @@ Barrier conditions are simulated dynamically using GBM price paths.
 
 The application simulates stock prices using Geometric Brownian Motion (GBM).
 
-## GBM Equation
+## Geometric Brownian Motion (GBM)
 
-dS_t = \mu S_t dt + \sigma S_t dW_t
+Stock prices are simulated using the Geometric Brownian Motion model:
+
+$$
+dS_t = \mu S_t\,dt + \sigma S_t\,dW_t
+$$
 
 where:
 
-* ( \mu ) = drift
-* ( \sigma ) = volatility
-* ( dW_t ) = Brownian motion
+- **$S_t$** = stock price at time $t$
+- **$\mu$** = expected return (drift)
+- **$\sigma$** = volatility
+- **$dW_t$** = Wiener process (Brownian motion)
+
+Under the risk-neutral measure, stock paths are generated using:
+
+$$
+S_{t+\Delta t}
+=
+S_t
+\exp\left(
+(r-\tfrac12\sigma^2)\Delta t
++
+\sigma\sqrt{\Delta t}Z
+\right)
+$$
+
+where $Z \sim N(0,1)$.
 
 ---
 
